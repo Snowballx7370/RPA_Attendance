@@ -25,16 +25,9 @@ excel_files = 'D:\RPA\Yondu Timesheet_Novemberr 1-15 2021_Monica Cho.xlsx'
 timeinvalues = []
 timeoutvalues = []
 datevalues = []
-timeinvaluefinal = []
-timeoutvaluefinal = []
 changetimein = []
 changetimeout = []
-changetimeinampm = []
-changetimeoutampm = []
-changetimeinfinal = []
-changetimeoutfinal = []
-changetimeinampmfinal = []
-changetimeoutampmfinal = []
+
 ####EXCEL####
 #LOAD WORKSHEET
 sheet = load_workbook(excel_files)
@@ -63,26 +56,6 @@ timeinfinal = [i for i in timeinvalues if i]
 timeoutfinal = [i for i in timeoutvalues if i]
 datefinal = [i for i in datevalues if i]
 iteration = len(datefinal)
-#PRINT VALUES
-for i in range(iteration):
-    timeinformat = timeinfinal[i].strftime("%I:%M %p")
-    timeinvaluefinal.append(timeinformat)
-    timeoutformat = timeoutfinal[i].strftime("%I:%M %p")
-    timeoutvaluefinal.append(timeoutformat)
-
-    changetimein = timeinfinal[i].strftime("%I")
-    changetimeinfinal.append(int(changetimein))
-    changetimeout = timeoutfinal[i].strftime("%I")
-    changetimeoutfinal.append(int(changetimeout))
-    changetimeinampm = timeinfinal[i].strftime("%p")
-    changetimeinampmfinal.append(changetimeinampm)
-    changetimeoutampm = timeoutfinal[i].strftime("%p")
-    changetimeoutampmfinal.append(changetimeoutampm)
-print("TIME IN: " + str(timeinvaluefinal))
-print("TIME OUT: " + str(timeoutvaluefinal))
-print("CHANGE TIME IN: " + str(changetimeinfinal) + str(changetimeinampmfinal))
-print("CHANGE TIME OUT: " + str(changetimeoutfinal) + str(changetimeoutampmfinal))
-print("DATE: " + str(datefinal))
 
 ####WEB AUTOMATION####
 url = 'https://ess.payroll.ph/app'
@@ -99,9 +72,6 @@ driver.implicitly_wait(15)
 driver.find_element(By.XPATH, '//*[@class="x-portlet-button-img"][@src="/images/flat-icons/clock2.png"]').click()
 for i in range(iteration):
     ###VARIABLES####
-    datemonth = datefinal[i].strftime("%b")
-    dateyear = datefinal[i].strftime("%Y")
-    dateday = datefinal[i].day
     #Click NEW
     time.sleep(5)
     driver.find_element(By.XPATH, '//*[@class=" x-btn-text icon-new"][text()="New"]').click()
@@ -111,16 +81,16 @@ for i in range(iteration):
     #Date
     driver.find_element(By.XPATH, '//div/div/img[@src="/images/default/s.gif"][@class="x-form-trigger x-form-date-trigger"]').click()
     driver.find_element(By.XPATH, '//*/em[@class=" x-btn-arrow"]').click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datemonth + '"]'))).click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + dateyear + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[i].strftime("%b") + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[i].strftime("%Y") + '"]'))).click()
     driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(dateday) + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[i].day) + '"]'))).click()
     time.sleep(1)
     #Time in
-    driver.find_element(By.ID, "TimeIn").send_keys(timeinvaluefinal[i])
+    driver.find_element(By.ID, "TimeIn").send_keys(timeinvalues[i].strftime("%I:%M %p"))
     time.sleep(1)
     #Time out
-    driver.find_element(By.ID, "TimeOut").send_keys(timeoutvaluefinal[i])
+    driver.find_element(By.ID, "TimeOut").send_keys(timeoutvalues[i].strftime("%I:%M %p"))
     time.sleep(1)
     #Input Remarks
     driver.find_element(By.XPATH, '//*[@name="Comment"]').click()
@@ -137,22 +107,19 @@ driver.find_element(By.XPATH, '//*/li[@id="tabpanel__tab-obfiling"]/a[@class="x-
 driver.find_element(By.XPATH, '//*/div[@id="portal-second-column"]/div/div[2]/div[1]/div/div/div/div[4]/center/img[@src="/images/flat-icons/week.png"]').click()
 for i in range(iteration):
     ###VARIABLES####
-    datemonth = datefinal[i].strftime("%b")
-    dateyear = datefinal[i].strftime("%Y")
-    dateday = datefinal[i].day
     #Click NEW
     time.sleep(5)
     driver.find_element(By.XPATH, '//*[@class=" x-btn-text icon-new"][text()="New"]').click()
     #Date
     driver.find_element(By.XPATH, '//*/div/div/img[@src="/images/default/s.gif"][@class="x-form-trigger x-form-date-trigger"]').click()
     driver.find_element(By.XPATH, '//*/em[@class=" x-btn-arrow"]').click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datemonth + '"]'))).click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + dateyear + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[i].strftime("%b") + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[i].strftime("%Y") + '"]'))).click()
     driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
-    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(dateday) + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[i].day) + '"]'))).click()
     time.sleep(1)
     #New Schedule
-    driver.find_element(By.XPATH, '//*/form/div[2]/div[1]/div/input[2]').send_keys(str(changetimeinfinal[i]) + changetimeinampmfinal[i] + "-" + str(changetimeoutfinal[i]) + changetimeoutampmfinal[i])
+    driver.find_element(By.XPATH, '//*/form/div[2]/div[1]/div/input[2]').send_keys(str(int(timeinfinal[i].strftime("%I"))) + timeinfinal[i].strftime("%p") + "-" + str(int(timeoutfinal[i].strftime("%I"))) + timeoutfinal[i].strftime("%p"))
     time.sleep(1)
     #Day Type
     driver.find_element(By.XPATH, '//*/form/div[3]/div[1]/div/input[2]').send_keys(daytype)
