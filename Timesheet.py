@@ -8,6 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import time
 import datetime
+import tkinter as tk
+from tkinter import simpledialog
 ####USER INPUT####
 #login
 clientcode = 'YONDU'
@@ -103,17 +105,17 @@ for i in range(len(obvalues)):
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[obvalues[i]].strftime("%Y") + '"]'))).click()
     driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[obvalues[i]].day) + '"]'))).click()
-    time.sleep(1)
+    time.sleep(0.1)
     #Time in
     driver.find_element(By.ID, "TimeIn").send_keys(timeinvalues[obvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Time out
     driver.find_element(By.ID, "TimeOut").send_keys(timeoutvalues[obvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Input Remarks
     driver.find_element(By.XPATH, '//*[@name="Comment"]').click()
     driver.find_element(By.XPATH, '//*[@name="Comment"]').send_keys(filingremarks)
-    time.sleep(1)
+    time.sleep(0.1)
     #Save
     driver.find_element(By.XPATH, '//*[@id="maintenance-save"]/tbody/tr[2]/td[2]/em/button[text()="Save"]').click()
     driver.find_element(By.XPATH, '//body').click()
@@ -133,17 +135,17 @@ for i in range(len(otvalues)):
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%Y") + '"]'))).click()
     driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
-    time.sleep(1)
+    time.sleep(0.1)
     #Time in
     driver.find_element(By.ID, "TimeIn").send_keys(timeinvalues[otvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Time out
     driver.find_element(By.ID, "TimeOut").send_keys(timeoutvalues[otvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Input Remarks
     driver.find_element(By.XPATH, '//*[@name="Comment"]').click()
     driver.find_element(By.XPATH, '//*[@name="Comment"]').send_keys(otfilingremarks)
-    time.sleep(1)
+    time.sleep(0.1)
     #Save
     driver.find_element(By.XPATH, '//*[@id="maintenance-save"]/tbody/tr[2]/td[2]/em/button[text()="Save"]').click()
     driver.find_element(By.XPATH, '//body').click()
@@ -167,14 +169,14 @@ for i in range(len(obvalues)):
     time.sleep(1)
     #New Schedule
     driver.find_element(By.XPATH, '//*/form/div[2]/div[1]/div/input[2]').send_keys(str(int(timeinvalues[obvalues[i]].strftime("%I"))) + timeinvalues[obvalues[i]].strftime("%p") + "-" + str(int(timeoutvalues[obvalues[i]].strftime("%I"))) + timeoutvalues[obvalues[i]].strftime("%p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Day Type
     driver.find_element(By.XPATH, '//*/form/div[3]/div[1]/div/input[2]').send_keys(daytype)
-    time.sleep(1)
+    time.sleep(0.1)
     #Input Remarks
     driver.find_element(By.XPATH, '//*[@name="Remarks"]').click()
     driver.find_element(By.XPATH, '//*[@name="Remarks"]').send_keys(changeshiftremarks)
-    time.sleep(1)
+    time.sleep(0.1)
     #Save
     driver.find_element(By.XPATH, '//*[@id="maintenance-save"]/tbody/tr[2]/td[2]/em/button[text()="Save"]').click()
     driver.find_element(By.XPATH, '//body').click()
@@ -197,7 +199,7 @@ for i in range(len(otvalues)):
     driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
     driver.find_element(By.XPATH, '//*/div[@class="x-window-footer x-panel-btns"]/div/table/tbody/tr/td[1]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[@class="x-btn-mc"]').click()
-    time.sleep(1)
+    time.sleep(0.1)
     #Start Date
     driver.find_element(By.XPATH, '//*/div[4]/div/div/img[@src="/images/default/s.gif"]').click()
     driver.find_element(By.XPATH, '//*/div[23]/ul/li/div/table/tbody/tr[1]/td[2]/table/tbody/tr[2]/td[2]/em[@class=" x-btn-arrow"]').click()
@@ -206,7 +208,7 @@ for i in range(len(otvalues)):
     driver.find_element(By.XPATH, '//*/div[23]/ul/li/div/div/table/tbody/tr[7]/td/button[@class="x-date-mp-ok"]').click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[23]/ul/li/div/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
     driver.find_element(By.XPATH, '//*/div[23]/div[2]/div[2]/div/div/div/div[1]/table/tbody/tr/td[1]/table/tbody/tr/td[1]/table/tbody/tr[2]/td[@class="x-btn-mc"]').click()
-    time.sleep(1)
+    time.sleep(0.1)
     #End Date
     driver.find_element(By.XPATH, '//*/div[5]/div/div/img[@src="/images/default/s.gif"]').click()
     driver.find_element(By.XPATH, '//*/div[24]/ul/li/div/table/tbody/tr[1]/td[2]/table/tbody/tr[2]/td[2]/em[@class=" x-btn-arrow"]').click()
@@ -214,19 +216,73 @@ for i in range(len(otvalues)):
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[24]/ul/li/div/div/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%Y") + '"]'))).click()
     driver.find_element(By.XPATH, '//*/div[24]/ul/li/div/div/table/tbody/tr[7]/td/button[@class="x-date-mp-ok"]').click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[24]/ul/li/div/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
-    time.sleep(1)
+    time.sleep(0.1)
     #Start Time
     driver.find_element(By.ID, "StartTime").send_keys(timeinvalues[otvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #End Time
     driver.find_element(By.ID, "EndTime").send_keys(timeoutvalues[otvalues[i]].strftime("%I:%M %p"))
-    time.sleep(1)
+    time.sleep(0.1)
     #Input Remarks
     driver.find_element(By.XPATH, '//*[@name="Comment"]').click()
     driver.find_element(By.XPATH, '//*[@name="Comment"]').send_keys(otfilingremarks)
-    time.sleep(1)
+    time.sleep(0.1)
     #Save
     driver.find_element(By.XPATH, '//*[@id="maintenance-save"]/tbody/tr[2]/td[2]/em/button[text()="Save"]').click()
     driver.find_element(By.XPATH, '//body').click()
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-btn   x-btn-noicon "]/tbody/tr[2]/td[2]/em/button[text()="Yes"]'))).click()
 print("OT Filing DONE")
+#Click Leave Filing
+time.sleep(5)
+driver.find_element(By.XPATH, '//*/li[@id="tabpanel__tab-otfiling"]/a[@class="x-tab-strip-close"]').click()
+driver.implicitly_wait(15)
+time.sleep(5)
+driver.find_element(By.XPATH, '//*[@src="/images/flat-icons/appointment.png"]').click()
+for i in range(len(leavevalues)):
+    #User Input
+    ROOT = tk.Tk()
+    ROOT.withdraw()
+    ROOT.geometry("100x100")
+    leavetype = simpledialog.askstring(title="Leave for " + datefinal[otvalues[i]].strftime("%b/%d/%Y"), prompt="Enter Leave Type (SL/VL): ")
+    quantity = simpledialog.askstring(title="Leave for " + datefinal[otvalues[i]].strftime("%b/%d/%Y"), prompt="Whole Day, 1st half or 2nd half (W/1/2): ")
+    reason = simpledialog.askstring(title="Leave for " + datefinal[otvalues[i]].strftime("%b/%d/%Y"), prompt="Enter Reason for Leave: ")
+    #Click NEW
+    time.sleep(5)
+    driver.find_element(By.XPATH, '//*[@class=" x-btn-text icon-new"][text()="New"]').click()
+    #Date 1
+    driver.find_element(By.XPATH, '//*/div[1]/div/div/div/div/div/div/div[1]/div/img[@src="/images/default/s.gif"][@class="x-form-trigger x-form-date-trigger"]').click()
+    driver.find_element(By.XPATH, '//*/em[@class=" x-btn-arrow"]').click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%b") + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-mp"]/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%Y") + '"]'))).click()
+    driver.find_element(By.CLASS_NAME, "x-date-mp-ok").click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-date-picker x-unselectable"]/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
+    time.sleep(0.1)
+    #Date 2
+    driver.find_element(By.XPATH, '//*/div[2]/div/div/div/div/div/div/div[1]/div/img[@src="/images/default/s.gif"]').click()
+    driver.find_element(By.XPATH, '//*/div[26]/ul/li/div/table/tbody/tr[1]/td[2]/table/tbody/tr[2]/td[2]/em[@class=" x-btn-arrow"]').click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[26]/ul/li/div/div/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%b") + '"]'))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[26]/ul/li/div/div/table/tbody/tr/td/a[text() = "' + datefinal[otvalues[i]].strftime("%Y") + '"]'))).click()
+    driver.find_element(By.XPATH, '//*/div[26]/ul/li/div/div/table/tbody/tr/td/button[@class="x-date-mp-ok"]').click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*/div[26]/ul/li/div/table/tbody/tr/td/table/tbody/tr/td/a/em/span[text() = "' + str(datefinal[otvalues[i]].day) + '"]'))).click()
+    time.sleep(0.1)
+    #Leave Type
+    if (leavetype == 'SL'): driver.find_element(By.XPATH, '//*/div[2]/div[1]/div/input[2]').send_keys("Sick Leave")
+    else: driver.find_element(By.XPATH, '//*/div[2]/div[1]/div/input[2]').send_keys("Vacation Leave")
+    time.sleep(0.1)
+    #Quantity
+    if (quantity == '1'): driver.find_element(By.XPATH, '//*/div[3]/div[1]/div/input[2]').send_keys("1st Half")
+    elif (quantity == '2'): driver.find_element(By.XPATH, '//*/div[3]/div[1]/div/input[2]').send_keys("2nd Half")
+    else: driver.find_element(By.XPATH, '//*/div[3]/div[1]/div/input[2]').send_keys("Whole Day")
+    time.sleep(0.1)
+    #Reason
+    driver.find_element(By.XPATH, '//*[@name="Reason"]').click()
+    driver.find_element(By.XPATH, '//*[@name="Reason"]').send_keys(reason)
+    time.sleep(0.1)
+    #Save
+    driver.find_element(By.XPATH, '//*[@id="maintenance-save"]/tbody/tr[2]/td[2]/em/button[text()="Save"]').click()
+    driver.find_element(By.XPATH, '//body').click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@class="x-btn   x-btn-noicon "]/tbody/tr[2]/td[2]/em/button[text()="Yes"]'))).click()
+print("Leave Filing DONE")
+
+# Finished in 2:02.65
+# Manual: 3:38.19
