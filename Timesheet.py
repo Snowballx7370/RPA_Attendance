@@ -28,8 +28,6 @@ timeinvalues = []
 timeoutvalues = []
 datevalues = []
 remarksvalues = []
-changetimein = []
-changetimeout = []
 
 obvalues = []
 otvalues = []
@@ -65,8 +63,6 @@ for cell in remarks_column:
     for remarks in cell:  
         remarksvalues.append(remarks.value)
 #REMOVE NONE
-# timeinfinal = [i for i in timeinvalues if i]
-# timeoutfinal = [i for i in timeoutvalues if i]
 datefinal = [i for i in datevalues if i]
 
 #Check REMARKS
