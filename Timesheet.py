@@ -12,9 +12,9 @@ import tkinter as tk
 from tkinter import simpledialog
 ####USER INPUT####
 #login
-clientcode = 'YONDU'
-employeecode = '22-02762'
-password = 'Aa051498!'
+clientcode = 'clientcode'
+employeecode = 'employeecode'
+password = 'password'
 #OB filing
 filingremarks = 'No Time In/Time Out'
 otfilingremarks = 'Weekend Support'
